@@ -35,7 +35,7 @@ img#appIcon{width:72px;height:72px;border-radius:16px;background:#fff;object-fit
 <body>
 <header>
 <h1>APK Cloud LITE - 사이트 안에서 다 해결하는 허브</h1>
-<p>준비물은 똥컴 끝이다. 실제 안드로이드 태블릿도, 폰도, 별도 서버도 필요 없다. 이 사이트 안에서 APK 분석, 웹APK 재생, 똥컴 사양 확인, pc-lite 다운로드까지 다 한다. 네이티브 게임의 진짜 실행만 PC 프로그램(pc-lite 가상 태블릿)이 맡는다. 블루스택과 같은 방식이다.</p>
+<p>준비물은 저사양 PC 하나면 끝이다. 실제 안드로이드 태블릿도, 폰도, 별도 서버도 필요 없다. 이 사이트 안에서 APK 분석, 웹APK 재생, PC 사양 확인, pc-lite 다운로드까지 다 한다. 네이티브 게임의 진짜 실행만 PC 프로그램(pc-lite 가상 태블릿)이 맡는다. 블루스택과 같은 방식이다.</p>
 </header>
 <main>
 <div class="card">
@@ -46,6 +46,14 @@ img#appIcon{width:72px;height:72px;border-radius:16px;background:#fff;object-fit
 <button class="secondary" id="clearBtn">지우기</button>
 </p>
 <p id="status" class="small">아직 파일이 없습니다. 샘플 버튼을 누르면 실제 APK 없이도 플레이 방식을 바로 확인할 수 있습니다.</p>
+</div>
+
+<div class="card">
+<h2 style="margin-top:0">CONVERT - APK를 PC 실행 파일로 바꾸기</h2>
+<p style="line-height:1.7">APK 코드를 Windows exe 코드로 바꾸는 게 아니다. 그런 변환은 소스 코드 없이 안 된다. 이 변환은 APK 파일 + 가상 태블릿 실행기(run-app.bat)를 담은 PC 실행 패키지(zip)를 만든다. PC에서 압축을 풀고 pc-lite 폴더에 넣고 run-app.bat을 더블클릭하면, 저사양 PC 가상 태블릿이 켜지고 APK가 설치되고 실제로 실행된다.</p>
+<p><button id="convertBtn">PC 실행 패키지로 변환하고 다운로드</button></p>
+<p id="convertOut" class="small">아직 변환 안 했다. 먼저 위에서 APK를 선택해라.</p>
+<p class="small">주의: pc-lite 설치(setup-lite.bat)가 먼저 끝나 있어야 한다. Roblox는 공식 Windows 클라이언트가 더 낫다. 출처를 모르는 APK는 변환하지 마라.</p>
 </div>
 
 <div class="grid">
@@ -79,15 +87,15 @@ img#appIcon{width:72px;height:72px;border-radius:16px;background:#fff;object-fit
 </div>
 
 <div class="card">
-<h2 style="margin-top:0">사이트 안에서 다 해결하기 - 똥컴 모드</h2>
-<p style="line-height:1.7">연결이 필요 없다. 이 사이트에서 1) APK를 분석하고, 2) 웹APK면 바로 재생하고, 3) 네이티브면 pc-lite를 받아서 똥컴 가상 태블릿으로 실행한다. 서버 주소 입력도, 클라우드 토큰도 없다.</p>
-<p><b>내 똥컴 사양 (이 브라우저가 알려주는 범위만)</b></p>
+<h2 style="margin-top:0">사이트 안에서 다 해결하기 - 저사양 모드</h2>
+<p style="line-height:1.7">연결이 필요 없다. 이 사이트에서 1) APK를 분석하고, 2) 웹APK면 바로 재생하고, 3) 네이티브면 pc-lite를 받아서 저사양 PC 가상 태블릿으로 실행한다. 서버 주소 입력도, 클라우드 토큰도 없다.</p>
+<p><b>내 PC 사양 (이 브라우저가 알려주는 범위만)</b></p>
 <p><button id="specBtn">사양 확인하기</button></p>
 <p id="specOut" class="small">아직 확인 안 했다.</p>
 <p><b>pc-lite 받기</b></p>
 <p><a href="https://github.com/kkkvault/apkcloud" target="_blank" rel="noopener" style="color:#7dd3fc">apkcloud 레포 열기 - Code 버튼에서 Download ZIP을 누른다</a><br>
 <span class="small">ZIP을 풀면 pc-lite 폴더가 있다. 순서: lite-check.py 확인 - 구글 공식 Command line tools zip을 같은 폴더에 넣기 - setup-lite.bat - play-lite.bat. Roblox는 플레이어의 Roblox 버튼으로 공식 Windows 클라이언트를 바로 실행한다.</span></p>
-<p class="small">HTML 웹사이트 안에 안드로이드 OS를 담아서 무거운 3D 게임을 돌리는 것은 현재 웹 기술로 안 된다. 브라우저는 하이퍼바이저와 GPU를 블루스택처럼 직접 쓸 수 없다. 그래서 사이트는 분석, 재생, 다운로드, 안내까지 맡고, 진짜 실행은 똥컴 프로그램이 맡는다.</p>
+<p class="small">HTML 웹사이트 안에 안드로이드 OS를 담아서 무거운 3D 게임을 돌리는 것은 현재 웹 기술로 안 된다. 브라우저는 하이퍼바이저와 GPU를 블루스택처럼 직접 쓸 수 없다. 그래서 사이트는 분석, 재생, 다운로드, 안내까지 맡고, 진짜 실행은 저사양 PC 프로그램이 맡는다.</p>
 </div>
 
 <div class="grid">
@@ -106,11 +114,11 @@ img#appIcon{width:72px;height:72px;border-radius:16px;background:#fff;object-fit
 </div>
 
 <div class="card">
-<h2 style="margin-top:0">똥컴 모드 안내 - 솔직한 한계부터</h2>
-<p style="line-height:1.7">브라우저 안에서는 안드로이드 네이티브 코드(DEX)를 직접 실행할 수 없습니다. 그래서 이 허브는 <b>분석 + 에셋 미리보기 + 웹앱 APK 실제 플레이 + 사양 확인 + pc-lite 다운로드</b>까지는 사이트 안에서 하고, 네이티브 앱의 진짜 실행은 똥컴 가상 태블릿(pc-lite)으로 연결합니다.</p>
+<h2 style="margin-top:0">저사양 모드 안내 - 솔직한 한계부터</h2>
+<p style="line-height:1.7">브라우저 안에서는 안드로이드 네이티브 코드(DEX)를 직접 실행할 수 없습니다. 그래서 이 허브는 <b>분석 + 에셋 미리보기 + 웹앱 APK 실제 플레이 + 사양 확인 + pc-lite 다운로드</b>까지는 사이트 안에서 하고, 네이티브 앱의 진짜 실행은 저사양 PC 가상 태블릿(pc-lite)으로 연결합니다.</p>
 <div class="guide">
-<div><b>똥컴에서 네이티브 APK 실행하기</b><br>1. apkcloud 레포에서 pc-lite 폴더를 똥컴에 복사한다.<br>2. setup-lite.bat으로 경량 태블릿(lite, 1280x800, RAM 1024MB)을 만든다.<br>3. play-lite.bat에서 APK 선택, 설치, 실행, scrcpy 화면 순서로 한다.</div>
-<div><b>Roblox</b><br>1. 에뮬레이터가 필요 없다.<br>2. 공식 Windows 클라이언트를 설치하고 pc-lite 플레이어의 Roblox 버튼으로 실행한다.<br>3. 저그래픽 설정이 똥컴에 유리하다.</div>
+<div><b>저사양 PC에서 네이티브 APK 실행하기</b><br>1. apkcloud 레포에서 pc-lite 폴더를 저사양 PC에 복사한다.<br>2. setup-lite.bat으로 경량 태블릿(lite, 1280x800, RAM 1024MB)을 만든다.<br>3. play-lite.bat에서 APK 선택, 설치, 실행, scrcpy 화면 순서로 한다.</div>
+<div><b>Roblox</b><br>1. 에뮬레이터가 필요 없다.<br>2. 공식 Windows 클라이언트를 설치하고 pc-lite 플레이어의 Roblox 버튼으로 실행한다.<br>3. 저그래픽 설정이 저사양 PC에 유리하다.</div>
 <div><b>브롤 같은 무거운 3D 게임</b><br>1. 경량 태블릿으로 켜지고 조작되는 것이 목표다.<br>2. 고그래픽, 고프레임은 하드웨어 한계로 보장할 수 없다.<br>3. 출처를 모르는 APK는 설치하지 마라.</div>
 </div>
 <p class="small">이 사이트는 어떤 APK도 서버에 업로드하지 않습니다. 분석, 해시 계산, 플레이가 모두 이 브라우저 안에서 일어납니다.</p>
@@ -266,7 +274,7 @@ async function loadApk(blob,fileName){
     }else{
       $("appType").textContent="네이티브 APK — 브라우저에서 직접 실행 불가";
       webBox.style.display="none"; nativeBox.style.display="block";
-      nativeBox.innerHTML="<b>브라우저에서는 이 앱을 직접 실행할 수 없습니다.</b> 안드로이드 네이티브 코드는 브라우저에서 돌아가지 않고, 아이폰은 APK 설치 자체가 안 됩니다. 아래 똥컴 모드 안내대로 pc-lite 가상 태블릿을 이용하세요. 대신 앱 정보, 권한, 파일 목록, 이미지·오디오·비디오 에셋 미리보기는 여기서 확인할 수 있습니다.";
+      nativeBox.innerHTML="<b>브라우저에서는 이 앱을 직접 실행할 수 없습니다.</b> 안드로이드 네이티브 코드는 브라우저에서 돌아가지 않고, 아이폰은 APK 설치 자체가 안 됩니다. 아래 저사양 모드 안내대로 pc-lite 가상 태블릿을 이용하세요. 대신 앱 정보, 권한, 파일 목록, 이미지·오디오·비디오 에셋 미리보기는 여기서 확인할 수 있습니다.";
       $("playBtn").disabled=true; $("newTabBtn").disabled=true; $("playerNote").textContent="네이티브 APK라 플레이 버튼이 비활성화됐습니다.";
       $("playerFrame").removeAttribute("srcdoc"); $("playerFrame").src="about:blank";
       setStatus("분석 완료: "+fileName+" — 네이티브 APK, 정보·파일·에셋 확인 가능");
@@ -305,8 +313,101 @@ $("sampleBtn").onclick=async()=>{
   btn.onclick=function(){
     var cores=navigator.hardwareConcurrency||'알 수 없음';
     var mem=navigator.deviceMemory? (navigator.deviceMemory+' GB 이상 (브라우저 추정치)') : '알 수 없음 (브라우저가 안 알려줌)';
-    document.getElementById('specOut').textContent='코어: '+cores+'개, 메모리 추정치: '+mem+'. 정확한 RAM은 똥컴에서 pc-lite의 lite-check.py로 확인해라. 코어가 적고 메모리가 적으면 경량 태블릿 모드를 써라.';
+    document.getElementById('specOut').textContent='코어: '+cores+'개, 메모리 추정치: '+mem+'. 정확한 RAM은 저사양 PC에서 pc-lite의 lite-check.py로 확인해라. 코어가 적고 메모리가 적으면 경량 태블릿 모드를 써라.';
   };
+})();
+</script>
+<script>
+"use strict";
+(function(){
+  var btn=document.getElementById('convertBtn');
+  if(!btn) return;
+  function safePkg(s){
+    s=(s||'').trim();
+    if(!s || s==='-' || s.charAt(0)==='(') return '';
+    return s.replace(/[^A-Za-z0-9._]/g,'');
+  }
+  function safeName(s){
+    s=(s||'app').replace(/\.apk$/i,'').replace(/[^A-Za-z0-9._-]/g,'_');
+    return s || 'app';
+  }
+  btn.onclick=async function(){
+    var out=document.getElementById('convertOut');
+    var blob=window.currentApkBlob, name=window.currentApkName||'app.apk';
+    if(!blob){ out.textContent='먼저 위에서 APK를 선택해라.'; return; }
+    if(typeof JSZip==='undefined'){ out.textContent='JSZip 로딩 대기 중이다. 잠시 후 다시 눌러줘.'; return; }
+    var pkg=safePkg(document.getElementById('appPackage') ? document.getElementById('appPackage').textContent : '');
+    var batLines=[
+      '@echo off',
+      'chcp 65001 >nul',
+      'cd /d %~dp0',
+      'echo APK Cloud LITE - PC run package',
+      'echo This runs the APK in the lite virtual tablet on this PC. No server connection.',
+      'set ADB=',
+      'if exist sdk\\platform-tools\\adb.exe set ADB=sdk\\platform-tools\\adb.exe',
+      'if exist platform-tools\\adb.exe set ADB=platform-tools\\adb.exe',
+      'if "%ADB%"=="" where adb >nul 2>&1 && set ADB=adb',
+      'if "%ADB%"=="" echo adb not found. Copy these files into the pc-lite folder and run setup-lite.bat first. & pause & exit /b 1',
+      'set EMU=',
+      'if exist sdk\\emulator\\emulator.exe set EMU=sdk\\emulator\\emulator.exe',
+      'if exist emulator\\emulator.exe set EMU=emulator\\emulator.exe',
+      'if "%EMU%"=="" where emulator >nul 2>&1 && set EMU=emulator',
+      '%ADB% shell getprop sys.boot_completed | find "1" >nul',
+      'if not errorlevel 1 goto DEVICE_OK',
+      'echo Starting lite tablet emulator...',
+      'if "%EMU%"=="" echo emulator not found. Run setup-lite.bat first. & pause & exit /b 1',
+      'start "" %EMU% -avd lite -memory 1024 -cores 2 -gpu swiftshader_indirect -partition-size 1024 -no-snapshot-load',
+      'echo Waiting for boot (up to 5 minutes)...',
+      'for /L %%i in (1,1,30) do ( timeout /t 10 /nobreak >nul & %ADB% shell getprop sys.boot_completed | find "1" >nul & if not errorlevel 1 goto DEVICE_OK )',
+      'echo Emulator did not boot. Check BIOS virtualization. & pause & exit /b 1',
+      ':DEVICE_OK',
+      'echo Installing app.apk...',
+      '%ADB% install -r app.apk',
+      'if errorlevel 1 echo Install failed. Check the APK. & pause & exit /b 1',
+      pkg ? '%ADB% shell monkey -p '+pkg+' -c android.intent.category.LAUNCHER 1' : 'echo Installed. Open the app from the tablet home screen.',
+      'where scrcpy >nul 2>&1 && start "" scrcpy --max-size 720 --video-bit-rate 2M',
+      'echo Done. Play in the emulator / scrcpy window.',
+      'pause'
+    ];
+    var bat=batLines.join('\r\n')+'\r\n';
+    var readme=[
+      'APK Cloud LITE - PC run package',
+      '',
+      'What this is:',
+      'This is NOT a conversion of Android code into Windows exe code.',
+      'It is app.apk + run-app.bat. The bat runs the APK in the lite virtual tablet on this PC.',
+      '',
+      'How to run:',
+      '1. Copy app.apk, run-app.bat and this file into the pc-lite folder.',
+      '2. Run setup-lite.bat once first, if you have not done it yet.',
+      '3. Double-click run-app.bat. It starts the lite tablet, installs app.apk, and launches it.',
+      '4. Play in the emulator / scrcpy window.',
+      '',
+      'Limits:',
+      'Heavy 3D games on a low-spec PC may still lag. That is a hardware limit, not a conversion failure.',
+      'Do not install APKs from unknown sources.'
+    ].join('\n');
+    try{
+      btn.disabled=true; out.textContent='변환 중...';
+      var z=new JSZip();
+      z.file('app.apk', blob);
+      z.file('run-app.bat', bat);
+      z.file('README-PC.txt', readme);
+      var zipBlob=await z.generateAsync({type:'blob'});
+      var url=URL.createObjectURL(zipBlob);
+      var a=document.createElement('a');
+      a.href=url; a.download=safeName(name)+'-pc.zip';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 5000);
+      out.textContent='변환 완료: '+a.download+' 다운로드가 시작됐다. 압축을 풀고 pc-lite 폴더에 복사한 뒤 run-app.bat을 더블클릭해라. APK 코드가 exe 코드로 바뀐 게 아니라, 가상 태블릿 실행 패키지다.';
+    }catch(e){
+      out.textContent='변환 실패: '+e.message;
+    }finally{
+      btn.disabled=false;
+    }
+  };
+  var clearBtn=document.getElementById('clearBtn');
+  if(clearBtn){ clearBtn.addEventListener('click', function(){ var o=document.getElementById('convertOut'); if(o) o.textContent='아직 변환 안 했다. 먼저 위에서 APK를 선택해라.'; }); }
 })();
 </script>
 </body>
