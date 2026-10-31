@@ -4,66 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="qjo9-00DTn-WbuZDQlzy_6DepAlVYFPsLDWydOW5UQg" />
-<title>내 클라우드 안드로이드 연결</title>
+<title>APK Cloud LITE - 똥컴용 로컬 가상 태블릿</title>
 <style>
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;background:#0f172a;color:#e2e8f0}
 header,main{max-width:900px;margin:0 auto;padding:20px} h1{font-size:26px;margin:0 0 8px} p{line-height:1.7;color:#cbd5e1}
 .card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:18px;margin:14px 0}
 .warn{background:#451a03;border:1px solid #f59e0b;border-radius:12px;padding:14px;line-height:1.7}
-input{width:100%;padding:12px;border-radius:10px;border:1px solid #475569;background:#0f172a;color:#e2e8f0;font-size:15px}
-button{background:#0ea5e9;color:#fff;border:0;border-radius:10px;padding:12px 16px;font-size:15px;cursor:pointer;margin:6px 6px 0 0}
-button.secondary{background:#334155} ol,ul{line-height:1.8} code{word-break:break-all;background:#0f172a;padding:2px 6px;border-radius:6px}
+ol,ul{line-height:1.8} code{word-break:break-all;background:#0f172a;padding:2px 6px;border-radius:6px}
 .small{color:#94a3b8;font-size:13px;line-height:1.6}
+a{color:#7dd3fc}
 </style>
 </head>
 <body>
 <header>
-<h1>내 클라우드 안드로이드 연결</h1>
-<p>이 페이지는 안드로이드를 직접 돌리지 않는다. 네가 직접 돌리는 서버의 화면으로 연결해주는 연결판이다.</p>
+<h1>APK Cloud LITE - 똥컴용 로컬 가상 태블릿</h1>
+<p>연결이 필요 없다. 준비물은 똥컴 끝이다. 실제 안드로이드 태블릿도, 폰도, 별도 서버도 필요 없다. 이 사이트에서 받는 PC 프로그램이 똥컴에서 가상 태블릿을 돌린다. 블루스택과 같은 방식이다.</p>
 </header>
 <main>
 <div class="card warn"><b>정직한 구조</b><br>
-GitHub Pages는 정적 웹사이트 호스팅이라 안드로이드 에뮬레이터를 돌릴 수 없다. GitHub의 역할은 이 연결판과 서버 코드 보관뿐이다. 실제 안드로이드는 Docker가 있는 리눅스 서버, 또는 가상화가 켜진 PC에서 돌아간다. 똥컴만으로는 무거운 3D 게임용 에뮬레이터를 돌리기 어렵다. 서버가 꺼지면 화면도 멈춘다.</div>
+HTML 웹사이트 안에 안드로이드 OS를 담아서 무거운 3D 게임을 돌리는 것은 현재 웹 기술로 안 된다. 브라우저는 블루스택처럼 하이퍼바이저와 GPU를 직접 쓸 수 없다. 그래서 실행은 PC 프로그램이 하고, 사이트는 그 프로그램을 받는 곳이다. 연결, Docker, 별도 서버는 이 모드에서 필요 없다.</div>
 
 <div class="card">
-<h2 style="margin-top:0">1. 내 서버 주소 연결</h2>
-<p class="small">주소는 이 기기에만 저장된다. 서버로 보내지 않는다. 같은 와이파이에서는 서버 IP를, 밖에서는 Tailscale 같은 사설 네트워크 주소를 쓴다. 인터넷에 noVNC를 그대로 공개하지 마라.</p>
-<input id="srv" placeholder="예: http://192.168.0.10:6080">
-<p>
-<button id="openBtn">서버 화면 새 탭으로 열기</button>
-<button class="secondary" id="saveBtn">주소 저장</button>
-<button class="secondary" id="clearBtn">주소 지우기</button>
-</p>
-<p id="msg" class="small"></p>
-</div>
-
-<div class="card">
-<h2 style="margin-top:0">2. 서버에서 APK 올리는 순서</h2>
+<h2 style="margin-top:0">똥컴에서 하는 순서</h2>
 <ol>
-<li>서버에 이 레포의 <code>docker/</code> 폴더를 복사한다.</li>
-<li><code>docker compose up -d</code> 로 안드로이드를 띄우고, 부팅이 끝날 때까지 기다린다.</li>
-<li><code>./play.sh 네가-받은-파일.apk</code> 를 실행한다. 설치가 끝나면 위 주소로 들어가서 앱 아이콘을 누른다.</li>
+<li>이 레포에서 <code>pc-lite</code> 폴더를 통째로 똥컴에 복사한다.</li>
+<li><code>python lite-check.py</code> 로 RAM, CPU, 디스크를 확인한다.</li>
+<li>구글 공식 Command line tools zip을 받아 같은 폴더에 넣고 <code>setup-lite.bat</code>을 실행한다.</li>
+<li><code>play-lite.bat</code>을 실행한다. 가상 태블릿 에뮬레이터 시작, APK 선택, 설치, 실행, scrcpy 화면 순서로 한다.</li>
+<li>Roblox는 에뮬레이터가 필요 없다. 플레이어의 Roblox 버튼은 공식 Windows 클라이언트를 바로 실행한다.</li>
 </ol>
-<p class="small">출처를 모르는 APK는 설치하지 마라. 공식 스토어가 아닌 APK는 악성코드와 계정 정지 위험이 있다. 브롤 같은 게임은 에뮬레이터 관련 약관 제한이 언급된 적이 있으니 본 계정으로 할 때는 조심해라.</p>
+<p class="small">가상 태블릿은 공식 에뮬레이터 태블릿 기기 정의(Nexus 10, 1280x800, RAM 1024MB)를 쓴다. 앱 서버를 속이는 가짜 기기 정보 조작은 하지 않는다.</p>
 </div>
 
 <div class="card">
-<h2 style="margin-top:0">3. 안 되면 먼저 확인할 것</h2>
+<h2 style="margin-top:0">솔직한 한계</h2>
 <ul>
-<li>서버에 Docker와 <code>/dev/kvm</code>이 있는가</li>
-<li>6080 포트가 서버 방화벽에서 열려 있는가</li>
-<li>같은 와이파이가 맞는가, 서버가 켜져 있는가</li>
-<li>PC에서 돌린다면 BIOS 가상화가 켜져 있는가</li>
+<li>가벼운 2D APK와 Roblox PC 클라이언트는 똥컴에서도 될 가능성이 높다.</li>
+<li>브롤 같은 무거운 3D 게임을 에뮬레이터로 고그래픽, 고프레임으로 돌리는 것은 하드웨어 한계로 보장할 수 없다. 켜지고 조작되는 것이 목표다.</li>
+<li>별도 서버가 있는 경우에만 <code>docker</code> 폴더를 쓴다. 그 경우에도 이 페이지는 스트리밍 연결판이 아니다.</li>
 </ul>
+<p class="small">출처를 모르는 APK는 설치하지 마라. 공식 스토어가 아닌 APK는 악성코드와 계정 정지 위험이 있다.</p>
 </div>
 </main>
-<script>
-var input=document.getElementById('srv'), msg=document.getElementById('msg');
-try{ var saved=localStorage.getItem('my-android-server'); if(saved) input.value=saved; }catch(e){}
-function norm(v){ v=(v||'').trim(); if(!v) return ''; if(!/^https?:\/\//i.test(v)) v='http://'+v; return v; }
-document.getElementById('saveBtn').onclick=function(){ var v=norm(input.value); if(!v){msg.textContent='주소를 먼저 입력해라.';return;} try{localStorage.setItem('my-android-server',v);}catch(e){} msg.textContent='저장됐다: '+v; };
-document.getElementById('openBtn').onclick=function(){ var v=norm(input.value); if(!v){msg.textContent='주소를 먼저 입력해라.';return;} window.open(v,'_blank','noopener'); };
-document.getElementById('clearBtn').onclick=function(){ try{localStorage.removeItem('my-android-server');}catch(e){} input.value=''; msg.textContent='지웠다.'; };
-</script>
 </body>
 </html>
