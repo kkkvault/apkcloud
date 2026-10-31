@@ -4,47 +4,310 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="qjo9-00DTn-WbuZDQlzy_6DepAlVYFPsLDWydOW5UQg" />
-<title>APK Cloud LITE - 똥컴용 로컬 가상 태블릿</title>
+<title>APK Cloud LITE - 사이트 안에서 다 해결하는 허브</title>
 <style>
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;background:#0f172a;color:#e2e8f0}
-header,main{max-width:900px;margin:0 auto;padding:20px} h1{font-size:26px;margin:0 0 8px} p{line-height:1.7;color:#cbd5e1}
+header{padding:28px 20px 10px;max-width:1100px;margin:0 auto} h1{margin:0;font-size:28px} header p{color:#94a3b8;line-height:1.6}
+main{max-width:1100px;margin:0 auto;padding:10px 20px 40px}
 .card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:18px;margin:14px 0}
+.drop{border:2px dashed #38bdf8;border-radius:16px;padding:28px;text-align:center;cursor:pointer;background:#0b1220}
+.drop.drag{background:#164e63} .drop b{font-size:18px}
+button{background:#0ea5e9;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:15px;cursor:pointer;margin:4px 6px 4px 0}
+button.secondary{background:#334155} button:disabled{opacity:.5}
+input[type=text],input[type=file]{width:100%;padding:10px;border-radius:10px;border:1px solid #475569;background:#0f172a;color:#e2e8f0}
+.grid{display:grid;grid-template-columns:1fr 1.4fr;gap:14px} @media(max-width:800px){.grid{grid-template-columns:1fr}}
+.kv{line-height:1.9;word-break:break-all} .kv b{color:#7dd3fc}
+.badge{display:inline-block;background:#0e7490;color:#fff;border-radius:999px;padding:3px 10px;font-size:13px;margin-right:6px}
 .warn{background:#451a03;border:1px solid #f59e0b;border-radius:12px;padding:14px;line-height:1.7}
-ol,ul{line-height:1.8} code{word-break:break-all;background:#0f172a;padding:2px 6px;border-radius:6px}
+.ok{background:#052e16;border:1px solid #22c55e;border-radius:12px;padding:14px;line-height:1.7}
+#playerWrap{background:#000;border-radius:12px;overflow:hidden;min-height:360px;position:relative}
+#playerFrame{width:100%;height:520px;border:0;background:#fff}
+#fileList{max-height:420px;overflow:auto;line-height:1.5} #fileList div{padding:7px 8px;border-bottom:1px solid #334155;cursor:pointer} #fileList div:hover{background:#334155}
+#previewBox img{max-width:100%} #previewBox video,#previewBox audio{width:100%}
+pre{white-space:pre-wrap;word-break:break-all;background:#0f172a;padding:12px;border-radius:10px;max-height:360px;overflow:auto}
+.guide{display:grid;grid-template-columns:repeat(3,1fr);gap:12px} @media(max-width:800px){.guide{grid-template-columns:1fr}}
+.guide div{background:#0f172a;border:1px solid #334155;border-radius:12px;padding:14px;line-height:1.7}
 .small{color:#94a3b8;font-size:13px;line-height:1.6}
-a{color:#7dd3fc}
+img#appIcon{width:72px;height:72px;border-radius:16px;background:#fff;object-fit:contain}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
 <header>
-<h1>APK Cloud LITE - 똥컴용 로컬 가상 태블릿</h1>
-<p>연결이 필요 없다. 준비물은 똥컴 끝이다. 실제 안드로이드 태블릿도, 폰도, 별도 서버도 필요 없다. 이 사이트에서 받는 PC 프로그램이 똥컴에서 가상 태블릿을 돌린다. 블루스택과 같은 방식이다.</p>
+<h1>APK Cloud LITE - 사이트 안에서 다 해결하는 허브</h1>
+<p>준비물은 똥컴 끝이다. 실제 안드로이드 태블릿도, 폰도, 별도 서버도 필요 없다. 이 사이트 안에서 APK 분석, 웹APK 재생, 똥컴 사양 확인, pc-lite 다운로드까지 다 한다. 네이티브 게임의 진짜 실행만 PC 프로그램(pc-lite 가상 태블릿)이 맡는다. 블루스택과 같은 방식이다.</p>
 </header>
 <main>
-<div class="card warn"><b>정직한 구조</b><br>
-HTML 웹사이트 안에 안드로이드 OS를 담아서 무거운 3D 게임을 돌리는 것은 현재 웹 기술로 안 된다. 브라우저는 블루스택처럼 하이퍼바이저와 GPU를 직접 쓸 수 없다. 그래서 실행은 PC 프로그램이 하고, 사이트는 그 프로그램을 받는 곳이다. 연결, Docker, 별도 서버는 이 모드에서 필요 없다.</div>
-
 <div class="card">
-<h2 style="margin-top:0">똥컴에서 하는 순서</h2>
-<ol>
-<li>이 레포에서 <code>pc-lite</code> 폴더를 통째로 똥컴에 복사한다.</li>
-<li><code>python lite-check.py</code> 로 RAM, CPU, 디스크를 확인한다.</li>
-<li>구글 공식 Command line tools zip을 받아 같은 폴더에 넣고 <code>setup-lite.bat</code>을 실행한다.</li>
-<li><code>play-lite.bat</code>을 실행한다. 가상 태블릿 에뮬레이터 시작, APK 선택, 설치, 실행, scrcpy 화면 순서로 한다.</li>
-<li>Roblox는 에뮬레이터가 필요 없다. 플레이어의 Roblox 버튼은 공식 Windows 클라이언트를 바로 실행한다.</li>
-</ol>
-<p class="small">가상 태블릿은 공식 에뮬레이터 태블릿 기기 정의(Nexus 10, 1280x800, RAM 1024MB)를 쓴다. 앱 서버를 속이는 가짜 기기 정보 조작은 하지 않는다.</p>
+<div class="drop" id="dropZone"><b>APK 파일을 여기에 드롭하거나 클릭해서 선택</b><p class="small">.apk 파일만 지원합니다. 용량이 클수록 분석이 오래 걸릴 수 있습니다. (권장 500MB 이하)</p></div>
+<input type="file" id="fileInput" accept=".apk" style="display:none">
+<p>
+<button id="sampleBtn">샘플 웹-APK로 테스트하기</button>
+<button class="secondary" id="clearBtn">지우기</button>
+</p>
+<p id="status" class="small">아직 파일이 없습니다. 샘플 버튼을 누르면 실제 APK 없이도 플레이 방식을 바로 확인할 수 있습니다.</p>
+</div>
+
+<div class="grid">
+<div class="card">
+<h2 style="margin-top:0">앱 정보</h2>
+<div style="display:flex;gap:14px;align-items:center"><img id="appIcon" alt="" style="display:none"><div><div id="appName" style="font-size:20px;font-weight:700">-</div><div id="appType" class="small">-</div></div></div>
+<div class="kv" style="margin-top:12px">
+<div>패키지: <b id="appPackage">-</b></div>
+<div>버전: <b id="appVersion">-</b></div>
+<div>파일 크기: <b id="appSize">-</b></div>
+<div>SHA-256: <b id="appSha">-</b></div>
+<div>최소 SDK / 대상 SDK: <b id="appSdk">-</b></div>
+<div>권한 개수: <b id="appPerm">-</b></div>
+<div>파일 개수: <b id="appFiles">-</b></div>
+</div>
+<div id="permBox" class="small" style="margin-top:10px"></div>
 </div>
 
 <div class="card">
-<h2 style="margin-top:0">솔직한 한계</h2>
-<ul>
-<li>가벼운 2D APK와 Roblox PC 클라이언트는 똥컴에서도 될 가능성이 높다.</li>
-<li>브롤 같은 무거운 3D 게임을 에뮬레이터로 고그래픽, 고프레임으로 돌리는 것은 하드웨어 한계로 보장할 수 없다. 켜지고 조작되는 것이 목표다.</li>
-<li>별도 서버가 있는 경우에만 <code>docker</code> 폴더를 쓴다. 그 경우에도 이 페이지는 스트리밍 연결판이 아니다.</li>
-</ul>
-<p class="small">출처를 모르는 APK는 설치하지 마라. 공식 스토어가 아닌 APK는 악성코드와 계정 정지 위험이 있다.</p>
+<h2 style="margin-top:0">플레이어</h2>
+<div id="playerWrap"><iframe id="playerFrame" title="APK 웹 플레이어" sandbox="allow-scripts allow-modals allow-pointer-lock allow-forms"></iframe></div>
+<p>
+<button id="playBtn" disabled>웹 콘텐츠 플레이</button>
+<button class="secondary" id="newTabBtn" disabled>새 탭으로 열기</button>
+<button class="secondary" id="fsBtn">전체화면</button>
+</p>
+<p id="playerNote" class="small">웹앱 형태 APK가 아니면 플레이 버튼이 활성화되지 않습니다. 아래 안내를 확인하세요.</p>
+<div id="nativeBox" class="warn" style="display:none"></div>
+<div id="webOkBox" class="ok" style="display:none"></div>
+</div>
+</div>
+
+<div class="card">
+<h2 style="margin-top:0">사이트 안에서 다 해결하기 - 똥컴 모드</h2>
+<p style="line-height:1.7">연결이 필요 없다. 이 사이트에서 1) APK를 분석하고, 2) 웹APK면 바로 재생하고, 3) 네이티브면 pc-lite를 받아서 똥컴 가상 태블릿으로 실행한다. 서버 주소 입력도, 클라우드 토큰도 없다.</p>
+<p><b>내 똥컴 사양 (이 브라우저가 알려주는 범위만)</b></p>
+<p><button id="specBtn">사양 확인하기</button></p>
+<p id="specOut" class="small">아직 확인 안 했다.</p>
+<p><b>pc-lite 받기</b></p>
+<p><a href="https://github.com/kkkvault/apkcloud" target="_blank" rel="noopener" style="color:#7dd3fc">apkcloud 레포 열기 - Code 버튼에서 Download ZIP을 누른다</a><br>
+<span class="small">ZIP을 풀면 pc-lite 폴더가 있다. 순서: lite-check.py 확인 - 구글 공식 Command line tools zip을 같은 폴더에 넣기 - setup-lite.bat - play-lite.bat. Roblox는 플레이어의 Roblox 버튼으로 공식 Windows 클라이언트를 바로 실행한다.</span></p>
+<p class="small">HTML 웹사이트 안에 안드로이드 OS를 담아서 무거운 3D 게임을 돌리는 것은 현재 웹 기술로 안 된다. 브라우저는 하이퍼바이저와 GPU를 블루스택처럼 직접 쓸 수 없다. 그래서 사이트는 분석, 재생, 다운로드, 안내까지 맡고, 진짜 실행은 똥컴 프로그램이 맡는다.</p>
+</div>
+
+<div class="grid">
+<div class="card">
+<h2 style="margin-top:0">파일 목록</h2>
+<input type="text" id="fileSearch" placeholder="파일 이름으로 검색 (예: png, mp3, index)">
+<p class="small"><span id="fileCount">0개</span> · 파일을 클릭하면 오른쪽에서 미리볼 수 있습니다.</p>
+<div id="fileList"></div>
+</div>
+<div class="card">
+<h2 style="margin-top:0">미리보기 / 추출</h2>
+<div id="previewBox"><p class="small">파일 목록에서 이미지, 오디오, 비디오, 텍스트 파일을 클릭하면 여기서 재생하거나 내용을 볼 수 있습니다.</p></div>
+<p><button class="secondary" id="dlBtn" disabled>선택한 파일 다운로드</button></p>
+<p class="small">추출한 파일은 원본 APK 안에 있던 파일 그대로입니다. 저작권이 있는 앱의 에셋을 외부에 배포하지 마세요.</p>
+</div>
+</div>
+
+<div class="card">
+<h2 style="margin-top:0">똥컴 모드 안내 - 솔직한 한계부터</h2>
+<p style="line-height:1.7">브라우저 안에서는 안드로이드 네이티브 코드(DEX)를 직접 실행할 수 없습니다. 그래서 이 허브는 <b>분석 + 에셋 미리보기 + 웹앱 APK 실제 플레이 + 사양 확인 + pc-lite 다운로드</b>까지는 사이트 안에서 하고, 네이티브 앱의 진짜 실행은 똥컴 가상 태블릿(pc-lite)으로 연결합니다.</p>
+<div class="guide">
+<div><b>똥컴에서 네이티브 APK 실행하기</b><br>1. apkcloud 레포에서 pc-lite 폴더를 똥컴에 복사한다.<br>2. setup-lite.bat으로 경량 태블릿(lite, 1280x800, RAM 1024MB)을 만든다.<br>3. play-lite.bat에서 APK 선택, 설치, 실행, scrcpy 화면 순서로 한다.</div>
+<div><b>Roblox</b><br>1. 에뮬레이터가 필요 없다.<br>2. 공식 Windows 클라이언트를 설치하고 pc-lite 플레이어의 Roblox 버튼으로 실행한다.<br>3. 저그래픽 설정이 똥컴에 유리하다.</div>
+<div><b>브롤 같은 무거운 3D 게임</b><br>1. 경량 태블릿으로 켜지고 조작되는 것이 목표다.<br>2. 고그래픽, 고프레임은 하드웨어 한계로 보장할 수 없다.<br>3. 출처를 모르는 APK는 설치하지 마라.</div>
+</div>
+<p class="small">이 사이트는 어떤 APK도 서버에 업로드하지 않습니다. 분석, 해시 계산, 플레이가 모두 이 브라우저 안에서 일어납니다.</p>
 </div>
 </main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const fmt=n=>{if(n<1024)return n+" B";if(n<1048576)return (n/1024).toFixed(1)+" KB";if(n<1073741824)return (n/1048576).toFixed(1)+" MB";return (n/1073741824).toFixed(2)+" GB"};
+const mime=name=>{const e=name.split(".").pop().toLowerCase();const m={png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",gif:"image/gif",webp:"image/webp",svg:"image/svg+xml",mp3:"audio/mpeg",wav:"audio/wav",ogg:"audio/ogg",m4a:"audio/mp4",mp4:"video/mp4",webm:"video/webm",css:"text/css",js:"text/javascript",json:"application/json",html:"text/html",txt:"text/plain",xml:"text/xml"};return m[e]||"application/octet-stream"};
+let zipObj=null, allFiles=[], webIndex=null, webRoot="", rewrittenUrl="", selectedFile=null, selectedBlob=null;
+function setStatus(t){$("status").textContent=t}
+</script>
+<script>
+"use strict";
+// ---- Binary AndroidManifest.xml (AXML) parser ----
+function readUtf8Len(dv,pos){const b=dv.getUint8(pos);if(b&0x80){return [((b&0x7f)<<8)|dv.getUint8(pos+1),pos+2]}return [b,pos+1]}
+function parseStringPool(dv,off){
+  const count=dv.getUint32(off+8,true), flags=dv.getUint32(off+16,true), stringsStart=dv.getUint32(off+20,true);
+  const offsets=[]; for(let i=0;i<count;i++) offsets.push(dv.getUint32(off+28+i*4,true));
+  const isUtf8=(flags&0x100)!==0; const out=[];
+  for(let i=0;i<count;i++){
+    let p=off+stringsStart+offsets[i];
+    try{
+      if(isUtf8){let r=readUtf8Len(dv,p); p=r[1]; r=readUtf8Len(dv,p); const blen=r[1]; p=r[1]; const bytes=new Uint8Array(dv.buffer,dv.byteOffset+p,blen); out.push(new TextDecoder("utf-8").decode(bytes));}
+      else{let len=dv.getUint16(p,true); p+=2; if(len&0x8000){len=((len&0x7fff)<<16)|dv.getUint16(p,true); p+=2;} const bytes=new Uint8Array(dv.buffer,dv.byteOffset+p,len*2); out.push(new TextDecoder("utf-16le").decode(bytes));}
+    }catch(e){out.push("")}
+  }
+  return out;
+}
+function parseAXML(buf){
+  const dv=new DataView(buf); if(dv.getUint16(0,true)!==0x0003) throw new Error("AXML이 아닙니다");
+  const fileSize=dv.getUint32(4,true); let strings=[]; const elements=[]; let off=8;
+  while(off+8<=fileSize){
+    const type=dv.getUint16(off,true), hsize=dv.getUint16(off+2,true), size=dv.getUint32(off+4,true);
+    if(size<=0) break;
+    if(type===0x0001){strings=parseStringPool(dv,off);}
+    else if(type===0x0102){
+      const nameIdx=dv.getInt32(off+20,true), attrCount=dv.getUint16(off+28,true);
+      const name=strings[nameIdx]||"";
+      const attrs={}; const attrBase=off+36;
+      for(let i=0;i<attrCount;i++){
+        const a=attrBase+i*20; const nsIdx=dv.getInt32(a,true), anIdx=dv.getInt32(a+4,true), raw=dv.getInt32(a+8,true);
+        const dataType=dv.getUint8(a+15), data=dv.getUint32(a+16,true);
+        const aname=strings[anIdx]||("attr"+i);
+        let val="";
+        if(dataType===3) val=strings[data]||"";
+        else if(dataType===1) val="ref:0x"+data.toString(16);
+        else if(dataType===0x12) val=data!==0?"true":"false";
+        else if(dataType===0x10||dataType===0x11) val=String(data);
+        else if(raw>=0&&strings[raw]) val=strings[raw];
+        else val="0x"+data.toString(16);
+        attrs[aname]={type:dataType,value:val,raw:raw};
+      }
+      elements.push({name:name,attrs:attrs});
+    }
+    off+=size;
+  }
+  const get=(el,k)=>el&&el.attrs[k]?el.attrs[k].value:"";
+  const manifest=elements.find(e=>e.name==="manifest")||{attrs:{}};
+  const app=elements.find(e=>e.name==="application")||{attrs:{}};
+  const sdk=elements.find(e=>e.name==="uses-sdk")||{attrs:{}};
+  const perms=elements.filter(e=>e.name==="uses-permission").map(e=>get(e,"name")).filter(Boolean);
+  return {package:get(manifest,"package"), versionCode:get(manifest,"versionCode"), versionName:get(manifest,"versionName"),
+    label:get(app,"label"), icon:get(app,"icon"), minSdk:get(sdk,"minSdkVersion"), targetSdk:get(sdk,"targetSdkVersion"),
+    permissions:perms, elements:elements};
+}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+</script>
+<script>
+"use strict";
+async function sha256(buf){const h=await crypto.subtle.digest("SHA-256",buf);return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,"0")).join("")}
+function renderFiles(){
+  const q=$("fileSearch").value.trim().toLowerCase();
+  const list=allFiles.filter(f=>!q||f.name.toLowerCase().includes(q));
+  $("fileCount").textContent=list.length+"개 / 전체 "+allFiles.length+"개";
+  $("fileList").innerHTML=list.slice(0,500).map(f=>"<div data-n='"+esc(f.name)+"'>"+esc(f.name)+" <span class='small'>"+fmt(f.size||0)+"</span></div>").join("")||"<p class='small'>검색 결과가 없습니다.</p>";
+  document.querySelectorAll("#fileList div[data-n]").forEach(d=>{d.onclick=()=>previewFile(d.dataset.n)});
+}
+async function previewFile(name){
+  selectedFile=name; const entry=zipObj.file(name); if(!entry) return;
+  const blob=await entry.async("blob"); selectedBlob=blob; $("dlBtn").disabled=false;
+  const box=$("previewBox"); const low=name.toLowerCase();
+  const url=URL.createObjectURL(blob);
+  if(/\.(png|jpg|jpeg|gif|webp|svg)$/.test(low)) box.innerHTML="<p><b>"+esc(name)+"</b></p><img src='"+url+"' alt='preview'>";
+  else if(/\.(mp3|wav|ogg|m4a)$/.test(low)) box.innerHTML="<p><b>"+esc(name)+"</b></p><audio controls src='"+url+"'></audio>";
+  else if(/\.(mp4|webm)$/.test(low)) box.innerHTML="<p><b>"+esc(name)+"</b></p><video controls src='"+url+"'></video>";
+  else if(/\.(txt|json|xml|html|css|js|properties)$/.test(low)){const t=await entry.async("string"); box.innerHTML="<p><b>"+esc(name)+"</b></p><pre>"+esc(t.slice(0,100000))+"</pre>";}
+  else box.innerHTML="<p><b>"+esc(name)+"</b></p><p class='small'>이 파일 형식은 미리보기를 지원하지 않습니다. 다운로드 버튼으로 추출할 수 있습니다. 크기: "+fmt(blob.size)+"</p>";
+}
+$("dlBtn").onclick=()=>{if(!selectedBlob||!selectedFile)return; const a=document.createElement("a"); a.href=URL.createObjectURL(selectedBlob); a.download=selectedFile.split("/").pop(); a.click();};
+async function buildWebPlay(){
+  if(!webIndex) return false;
+  try{
+    const idxText=await zipObj.file(webIndex).async("string");
+    const map={};
+    const rootFiles=allFiles.filter(f=>f.name.startsWith(webRoot)&&!f.name.endsWith("/"));
+    for(const f of rootFiles.slice(0,200)){
+      const ext=f.name.split(".").pop().toLowerCase();
+      if(!["js","css","png","jpg","jpeg","gif","webp","svg","mp3","wav","ogg","mp4","json"].includes(ext)) continue;
+      try{const b=await zipObj.file(f.name).async("blob"); map[f.name.slice(webRoot.length)]=URL.createObjectURL(new Blob([b],{type:mime(f.name)}));}catch(e){}
+    }
+    const rewritten=idxText.replace(/((?:src|href)\s*=\s*["'])(?!https?:|data:|#|blob:)([^"']+)(["'])/g,(m,p1,path,p3)=>{
+      let clean=decodeURIComponent(path).replace(/^\.\//,"");
+      if(map[clean]) return p1+map[clean]+p3;
+      const base=clean.split("/").pop(); const hit=Object.keys(map).find(k=>k.endsWith("/"+base)||k===base);
+      return hit?p1+map[hit]+p3:m;
+    });
+    $("playerFrame").srcdoc=rewritten;
+    rewrittenUrl=URL.createObjectURL(new Blob([rewritten],{type:"text/html"}));
+    return true;
+  }catch(e){return false}
+}
+async function loadApk(blob,fileName){
+  window.currentApkBlob=blob; window.currentApkName=fileName;
+  if(typeof JSZip==="undefined"){setStatus("JSZip 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인하고 새로고침하세요.");return}
+  setStatus("분석 중… (파일을 서버로 보내지 않습니다)");
+  try{
+    const buf=await blob.arrayBuffer();
+    zipObj=await JSZip.loadAsync(buf);
+    allFiles=[]; zipObj.forEach((rel,entry)=>{if(!entry.dir) allFiles.push({name:entry.name,size:0})});
+    // sizes are not in JSZip index; keep count only, size shown from blob where possible
+    $("appFiles").textContent=allFiles.length+"개";
+    $("appSize").textContent=fmt(blob.size);
+    $("appSha").textContent=await sha256(buf);
+    let info=null;
+    const man=zipObj.file("AndroidManifest.xml");
+    if(man){try{const mb=await man.async("arraybuffer"); info=parseAXML(mb);}catch(e){info=null}}
+    const pkg=info&&info.package?info.package:"(매니페스트에서 패키지 확인 불가)";
+    const label=info&&info.label&&!info.label.startsWith("ref:")?info.label:pkg;
+    $("appName").textContent=label;
+    $("appPackage").textContent=pkg;
+    $("appVersion").textContent=(info&&info.versionName?info.versionName:"-")+" ("+(info&&info.versionCode?info.versionCode:"-")+")";
+    $("appSdk").textContent=(info&&info.minSdk?info.minSdk:"-")+" / "+(info&&info.targetSdk?info.targetSdk:"-");
+    $("appPerm").textContent=info?info.permissions.length+"개":"-";
+    $("permBox").innerHTML=info&&info.permissions.length?("<b>권한</b><br>"+info.permissions.map(p=>esc(p)).join("<br>")):"";
+    // icon: prefer xxxhdpi launcher
+    const icons=allFiles.map(f=>f.name).filter(n=>/(mipmap|drawable)[^/]*\/.*(launcher|icon).*\.png$/i.test(n));
+    icons.sort((a,b)=>{const rank=s=>s.includes("xxxhdpi")?0:s.includes("xxhdpi")?1:s.includes("xhdpi")?2:s.includes("hdpi")?3:4;return rank(a)-rank(b)});
+    if(icons.length){try{const b=await zipObj.file(icons[0]).async("blob"); const u=URL.createObjectURL(b); const im=$("appIcon"); im.src=u; im.style.display="block";}catch(e){}}
+    else{$("appIcon").style.display="none"}
+    // web content detection
+    const cands=["assets/public/index.html","assets/www/index.html","assets/index.html"];
+    webIndex=cands.find(c=>zipObj.file(c))||allFiles.map(f=>f.name).filter(n=>/^assets\/.+\/index\.html$/.test(n)).sort((a,b)=>a.length-b.length)[0]||null;
+    webRoot=webIndex?webIndex.slice(0,webIndex.length-"index.html".length):"";
+    const nativeBox=$("nativeBox"), webBox=$("webOkBox");
+    if(webIndex){
+      $("appType").textContent="웹앱 형태 APK — 이 플레이어에서 바로 플레이 가능";
+      webBox.style.display="block"; webBox.innerHTML="<b>플레이 가능:</b> 이 APK 안에 웹 콘텐츠("+esc(webIndex)+")가 있습니다. 플레이 버튼을 누르면 아래 플레이어에서 실행됩니다. 외부 파일이 많은 복잡한 웹앱은 일부 리소스가 안 뜰 수 있습니다.";
+      nativeBox.style.display="none"; $("playBtn").disabled=false; $("newTabBtn").disabled=false; $("playerNote").textContent="플레이 버튼을 누르면 웹 콘텐츠가 플레이어에 뜹니다. 게임 소리가 안 나면 플레이어 안을 한 번 클릭하세요.";
+      await buildWebPlay();
+      setStatus("분석 완료: "+fileName+" — 웹앱 형태, 플레이 준비됨");
+    }else{
+      $("appType").textContent="네이티브 APK — 브라우저에서 직접 실행 불가";
+      webBox.style.display="none"; nativeBox.style.display="block";
+      nativeBox.innerHTML="<b>브라우저에서는 이 앱을 직접 실행할 수 없습니다.</b> 안드로이드 네이티브 코드는 브라우저에서 돌아가지 않고, 아이폰은 APK 설치 자체가 안 됩니다. 아래 똥컴 모드 안내대로 pc-lite 가상 태블릿을 이용하세요. 대신 앱 정보, 권한, 파일 목록, 이미지·오디오·비디오 에셋 미리보기는 여기서 확인할 수 있습니다.";
+      $("playBtn").disabled=true; $("newTabBtn").disabled=true; $("playerNote").textContent="네이티브 APK라 플레이 버튼이 비활성화됐습니다.";
+      $("playerFrame").removeAttribute("srcdoc"); $("playerFrame").src="about:blank";
+      setStatus("분석 완료: "+fileName+" — 네이티브 APK, 정보·파일·에셋 확인 가능");
+    }
+    renderFiles();
+  }catch(e){console.error(e); setStatus("분석 실패: "+e.message+" — 파일이 손상됐거나 APK(zip) 형식이 아닐 수 있습니다.")}
+}
+$("playBtn").onclick=async()=>{if(await buildWebPlay()) setStatus("플레이 중"); else setStatus("플레이 준비에 실패했습니다")};
+$("newTabBtn").onclick=async()=>{if(!rewrittenUrl) await buildWebPlay(); if(rewrittenUrl) window.open(rewrittenUrl,"_blank")};
+$("fsBtn").onclick=()=>{const w=$("playerWrap"); if(w.requestFullscreen) w.requestFullscreen()};
+$("fileSearch").oninput=renderFiles;
+$("clearBtn").onclick=()=>{zipObj=null; allFiles=[]; webIndex=null; rewrittenUrl=""; $("playerFrame").removeAttribute("srcdoc"); $("playerFrame").src="about:blank"; $("fileList").innerHTML=""; $("previewBox").innerHTML="<p class='small'>파일 목록에서 파일을 선택하세요.</p>"; $("appName").textContent="-"; $("appPackage").textContent="-"; $("appVersion").textContent="-"; $("appSize").textContent="-"; $("appSha").textContent="-"; $("appSdk").textContent="-"; $("appPerm").textContent="-"; $("appFiles").textContent="-"; $("appType").textContent="-"; $("permBox").innerHTML=""; $("nativeBox").style.display="none"; $("webOkBox").style.display="none"; $("playBtn").disabled=true; $("newTabBtn").disabled=true; setStatus("지웠습니다.")};
+const dz=$("dropZone");
+dz.onclick=()=>$("fileInput").click();
+$("fileInput").onchange=e=>{if(e.target.files[0]) loadApk(e.target.files[0],e.target.files[0].name)};
+["dragover","dragenter"].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add("drag")}));
+["dragleave","drop"].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove("drag")}));
+dz.addEventListener("drop",e=>{const f=e.dataTransfer.files[0]; if(f) loadApk(f,f.name)});
+$("sampleBtn").onclick=async()=>{
+  if(typeof JSZip==="undefined"){setStatus("JSZip 로딩 대기 중입니다. 잠시 후 다시 눌러주세요.");return}
+  setStatus("샘플 웹-APK 만드는 중…");
+  const z=new JSZip();
+  z.file("AndroidManifest.xml","sample manifest - binary parsing is skipped for this demo");
+  const game="<!DOCTYPE html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><style>body{font-family:system-ui;text-align:center;padding:30px;background:#111827;color:#fff}button{font-size:20px;padding:14px 24px;border-radius:12px;border:0;background:#0ea5e9;color:#fff} #box{width:80px;height:80px;background:#f59e0b;margin:20px auto;border-radius:16px;transition:transform .15s}</style></head><body><h2>샘플 미니 게임</h2><p>이 화면 자체가 APK 안에 있던 웹 콘텐츠입니다.</p><div id='box'></div><p>점수: <b id='s'>0</b></p><button onclick='hit()'>박스 두드리기</button><script>let s=0;function hit(){s++;document.getElementById('s').textContent=s;const b=document.getElementById('box');b.style.transform='scale('+(1+Math.random()*0.4)+') rotate('+(Math.random()*30-15)+'deg)';}<\/script></body></html>";
+  z.folder("assets").folder("public").file("index.html",game);
+  const blob=await z.generateAsync({type:"blob"});
+  await loadApk(blob,"sample-web-apk.apk");
+};
+</script>
+
+<script>
+"use strict";
+(function(){
+  var btn=document.getElementById('specBtn');
+  if(!btn) return;
+  btn.onclick=function(){
+    var cores=navigator.hardwareConcurrency||'알 수 없음';
+    var mem=navigator.deviceMemory? (navigator.deviceMemory+' GB 이상 (브라우저 추정치)') : '알 수 없음 (브라우저가 안 알려줌)';
+    document.getElementById('specOut').textContent='코어: '+cores+'개, 메모리 추정치: '+mem+'. 정확한 RAM은 똥컴에서 pc-lite의 lite-check.py로 확인해라. 코어가 적고 메모리가 적으면 경량 태블릿 모드를 써라.';
+  };
+})();
+</script>
 </body>
 </html>
